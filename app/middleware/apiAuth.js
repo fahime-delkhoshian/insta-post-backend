@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
                 }); 
             }
 
-            Users.findById(decoded.user_id, (err, user) =>{
+            User.findById(decoded.user_id, (err, user) =>{
                 if (err) throw err;
                 if(user) {
                     user.token = token;
