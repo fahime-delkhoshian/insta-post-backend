@@ -3,7 +3,12 @@ const UserTransform = require('app/transforms/v1/userTransform');
 
 module.exports = new class UserController extends Controller{
 
-
+    /**
+     * 
+     * url: api/v1/user
+     * method : POST
+     * params : [username, fullname]
+     */
     async insert(req, res) {
         try {
 

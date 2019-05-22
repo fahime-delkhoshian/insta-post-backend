@@ -16,5 +16,6 @@ const { uploadImage } = require('app/middleware/uploadMid');
 router.post('/user', userValidator.signIn(), userController.insert);
 
 router.post('/post', ApiAuth , uploadImage.single('image'),postController.insert);
+router.get('/post',postController.getPosts);
 
 module.exports = router;

@@ -42,4 +42,31 @@ module.exports = new class PostController extends Controller{
         }  
     }
 
+     /**
+     * 
+     * url: api/v1/post
+     * method : GET
+     * params : []
+     */
+    async getPosts(req, res) {
+        try {
+            const posts =await this.model.Post.find({}).populate('user');
+            return res.json({
+                data : posts.map(post =>{
+                    return {
+                        post_id : post._id,
+                        content : post.content,
+                        image_path : config.url + post.image,
+                        sender_name : post.user.fullname,
+                        comment_number : post.commentsNumber
+                    }
+                }),
+                success : true
+            });
+
+        } catch (err) {
+            this.failedMessage(err.message , res);
+        }
+    }
+
 }
