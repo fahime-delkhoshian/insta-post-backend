@@ -15,11 +15,14 @@ module.exports = new class CommentController extends Controller{
                 post : req.body.post_id,
                 content : req.body.content,
             });
+            const post =await this.model.Post.findById(req.body.post_id);
 
             await newComment.save((err, comment) => {
                 if(err) {
                     return this.failedMessage(err, res);
                 } else{
+                    post.commentsNumber = post.commentsNumber + 1;
+                    post.save();
                     return res.json({
                         message : 'comment was successfully registered',
                         success : true
