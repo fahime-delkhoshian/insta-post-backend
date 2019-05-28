@@ -40,6 +40,14 @@ module.exports = class Application{
     }
 
     setRouters() {
+        app.use('', function(req, res, next) {
+            res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+            res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+            res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+            //Auth Each API Request created by user.
+            next();
+            });
         app.use('/api', require('app/routes/api'));
+
     }
 }

@@ -34,13 +34,13 @@ module.exports = new class CommentController extends Controller{
 
      /**
      * 
-     * url: api/v1/comment
+     * url: api/v1/comment/:post_id
      * method : GET
-     * params : [post_id]
+     * params : []
      */
     async getComments(req, res) {
         try {
-            const comments =await this.model.Comment.find({post : req.body.post_id});
+            const comments =await this.model.Comment.find({post : req.params.post_id});
             return res.json({
                 data : comments.map(comment =>{
                     return {
