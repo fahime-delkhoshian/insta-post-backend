@@ -14,6 +14,7 @@ module.exports = new class CommentController extends Controller{
             let newComment = new this.model.Comment({
                 post : req.body.post_id,
                 content : req.body.content,
+                user : req.user._id,
             });
             const post =await this.model.Post.findById(req.body.post_id);
 
@@ -43,12 +44,13 @@ module.exports = new class CommentController extends Controller{
      */
     async getComments(req, res) {
         try {
-            const comments =await this.model.Comment.find({post : req.params.post_id});
+            const comments =await this.model.Comment.find({post : req.params.post_id}).populate('user');
             return res.json({
                 data : comments.map(comment =>{
                     return {
                         id : comment._id,
                         content : comment.content,
+                        username : comment.user.fullname
                     }
                 }),
                 success : true

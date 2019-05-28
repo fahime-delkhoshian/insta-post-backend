@@ -19,7 +19,7 @@ router.post('/user', userValidator.signIn(), userController.insert);
 router.post('/post', ApiAuth , uploadImage.single('image'),postController.insert);
 router.get('/post',postController.getPosts);
 
-router.post('/comment',commentController.insert);
+router.post('/comment',ApiAuth ,commentController.insert);
 router.get('/comment/:post_id',commentController.getComments);
 
 module.exports = router;
